@@ -9,7 +9,8 @@ module ActiveRecord
           t = string_to_dummy_time_without_time_of_day(string)
           t.respond_to?(:time_of_day) ? t.time_of_day : t
         end
-        alias_method_chain :string_to_dummy_time, :time_of_day
+        # don't care if we're not using ActiveRecord
+        alias_method_chain(:string_to_dummy_time, :time_of_day) if method_defined?(:string_to_dummy_time)
       end
     end
   end
